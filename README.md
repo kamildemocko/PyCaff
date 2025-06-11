@@ -46,8 +46,8 @@ You can create a batch file to easily run PyCaff:
 ```cmd
 @echo off
 cd /d "SCRIPT LOCATION"
+SET LOGGING_LEVEL=INFO
 uv run ./src/main.py
-REM to enable debugging add `LOGGING_ENABLED=FALSE` to the batch file
 ```
 
 2. Save the batch file anywhere convenient
