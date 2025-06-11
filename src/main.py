@@ -21,6 +21,7 @@ def main():
         msvcrt.getch()
 
     finally:
+        print("Restoring timeouts...")
         pow.restore_backed_up_timeouts()
         pow.remove_backed_up_timeouts()
 

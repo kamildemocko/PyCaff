@@ -10,18 +10,18 @@ PyCaff is a Python utility that prevents your Windows system from going to sleep
 
 ## Installation
 
-Requires Python 3.10 or higher.
+Requires Python 3.10 or higher.  
+Requires uv  
 
 ```cmd
-# Clone the repository
-git clone https://github.com/yourusername/pycaff.git
+git clone https://github.com/kamildemocko/PyCaff.git
 cd pycaff
-
-# Install dependencies
 uv sync
 ```
 
 ## Usage
+
+## Manual
 
 Run the application to prevent your system from sleeping:
 
@@ -36,6 +36,22 @@ If the application exits unexpectedly, you can restore your original power setti
 ```bash
 python -m src.main --restore
 ```
+
+### Script
+
+You can create a batch file to easily run PyCaff:
+
+1. Create a file named `pycaff.bat` with the following content:
+
+```batch
+@echo off
+SET "LOGURU_LEVEL=INFO"
+uv run ./src/main.py
+```
+
+2. Save the batch file in the PyCaff root folder
+3. Create a shortcut to this batch file
+3. Double-click the batch file whenever you want to prevent your system from sleeping
 
 ## License
 
