@@ -33,26 +33,25 @@ Press any key to exit and restore original power settings.
 
 If the application exits unexpectedly, you can restore your original power settings with:
 
-```bash
+```cmd
 python -m src.main --restore
 ```
 
 ### Script
 
-You can create a batch file to easily run PyCaff:
+You can create a batch file to easily run PyCaff:  
 
-1. Create a file named `pycaff.bat` with the following content:
+1. Create a file named `pycaff.bat` with the following content:  
 
-```batch
+```cmd
 @echo off
+cd /d "SCRIPT LOCATION"
 uv run ./src/main.py
 REM to enable debugging add `LOGGING_ENABLED=FALSE` to the batch file
 ```
 
-
-2. Save the batch file in the PyCaff root folder
-3. Create a shortcut to this batch file
-3. Double-click the batch file whenever you want to prevent your system from sleeping
+2. Save the batch file anywhere convenient
+3. Double-click the batch file or run from command line if saved in *path*
 
 ## License
 
