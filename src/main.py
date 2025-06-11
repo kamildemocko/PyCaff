@@ -1,11 +1,15 @@
 import msvcrt
 
+from init import Initializator
 from models import PowerManager
 from models import Timeouts
 
 
 def main():
-    pow = PowerManager()
+    init = Initializator()
+
+    pow = PowerManager(init.backup_path)
+    pow.load_original_timeouts()
     pow.backup_original_timeouts()
 
     try:
