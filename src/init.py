@@ -13,15 +13,21 @@ class Initializator:
             .joinpath("timeouts.json")
         )
 
-        if self.backup_path.exists():
-            print(sys.argv)
-            if len(sys.argv) > 1 and sys.argv[1] == "--restore":
-                pow = PowerManager(self.backup_path)
-                pow.restore_backed_up_timeouts()
-                pow.remove_backed_up_timeouts()
-                sys.exit(0)
+        restore_flag = False
+        if len(sys.argv) > 1 and sys.argv[1] == "--restore":
+            restore_flag = True
 
-            else:
-                print("old backup found, either restore backup "
-                    "with '--restore' flag or delete backup folder")
-                sys.exit(1)
+        if self.backup_path.exists() and restore_flag:
+            pow = PowerManager(self.backup_path)
+            pow.restore_backed_up_timeouts()
+            pow.remove_backed_up_timeouts()
+            sys.exit(0)
+        
+        elif self.backup_path.exists() and not restore_flag:
+            print("old backup found, either restore backup "
+                "with '--restore' flag or delete backup folder")
+            sys.exit(1)
+
+        elif not self.backup_path.exists() and restore_flag:
+            print("no backup found, nothing to restore")
+            sys.exit(1)

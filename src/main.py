@@ -15,7 +15,9 @@ def main():
     try:
         pow.set_timeouts(Timeouts(0, 0))
 
-        print("press any key to exit")
+        print("System is py-caffeinated!")
+        print("Press any key to exit")
+
         msvcrt.getch()
 
     finally:
