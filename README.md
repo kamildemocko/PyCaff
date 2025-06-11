@@ -45,9 +45,10 @@ You can create a batch file to easily run PyCaff:
 
 ```batch
 @echo off
-SET "LOGURU_LEVEL=INFO"
 uv run ./src/main.py
+REM to enable debugging add `LOGGING_ENABLED=FALSE` to the batch file
 ```
+
 
 2. Save the batch file in the PyCaff root folder
 3. Create a shortcut to this batch file

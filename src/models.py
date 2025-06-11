@@ -1,12 +1,17 @@
 from typing import Any
+import os
 from dataclasses import dataclass
 from dataclasses import asdict
 from pathlib import Path
 import re
 import json
 import subprocess
+import logging
 
-from loguru import logger
+
+logging_enabled_flag: str = os.environ.get("LOGGING_ENABLED", "FALSE")
+if logging_enabled_flag.upper() == "TRUE":
+    logging.basicConfig(level=logging.DEBUG)
 
 
 @dataclass
@@ -44,7 +49,7 @@ class PowerManager:
         if not self.timeouts_loaded:
             raise RuntimeError("original timeouts not loaded, call load_original_timeouts() first")
 
-        logger.debug(f"backing up original timeouts to {self._backup_path}")
+        logging.debug(f"backing up original timeouts to {self._backup_path}")
 
         if not self._backup_path.exists():
             self._backup_path.parent.mkdir(parents=True, exist_ok=True)
@@ -56,7 +61,7 @@ class PowerManager:
         """
         Restores backed up timeouts, if missing throws an error
         """
-        logger.debug(f"restoring original timeouts from {self._backup_path}")
+        logging.debug(f"restoring original timeouts from {self._backup_path}")
 
         if not self._backup_path.exists():
             ValueError("backup file does not exist, cannot restore timeouts")
@@ -74,7 +79,7 @@ class PowerManager:
         """
         Deletes backup file
         """
-        logger.debug(f"deleting backup timeouts from {self._backup_path}")
+        logging.debug(f"deleting backup timeouts from {self._backup_path}")
 
         if not self._backup_path.exists():
             return
@@ -89,7 +94,7 @@ class PowerManager:
         Args:
             timeouts (Timeouts): Timeouts to set
         """
-        logger.debug(f"setting new  timeouts: {timeouts}")
+        logging.debug(f"setting new  timeouts: {timeouts}")
 
         subprocess.call(f'powercfg -change -standby-timeout-ac {timeouts.ac / 60}')
         subprocess.call(f'powercfg -change -standby-timeout-dc {timeouts.dc / 60}')

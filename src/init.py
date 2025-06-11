@@ -1,9 +1,8 @@
 import sys
 from pathlib import Path
 
-from loguru import logger
-
 from models import PowerManager
+
 
 class Initializator:
     def __init__(self) -> None:
