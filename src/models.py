@@ -82,7 +82,7 @@ class PowerManager:
         self._backup_path.unlink()
 
 
-    def set_timeouts(self, timeouts: Timeouts):
+    def set_timeouts(self, timeouts: Timeouts) -> None:
         """
         Sets new timeout values
 
