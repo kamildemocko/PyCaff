@@ -1,5 +1,3 @@
-import sys
-
 from init import Initializator
 from models import PowerManager
 from models import Timeouts

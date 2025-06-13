@@ -49,6 +49,9 @@ class PowerManager:
         if not self._backup_path.exists():
             self._backup_path.parent.mkdir(parents=True, exist_ok=True)
 
+        if not self.original_timeouts:
+            raise ValueError("cannot find timeouts on the system")
+
         with self._backup_path.open("w", encoding="utf-8") as file:
             json.dump(asdict(self.original_timeouts), file)
 

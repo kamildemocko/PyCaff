@@ -40,7 +40,7 @@ class Icon:
             atexit.unregister(self._quit)
 
             self.icon.icon = Icon.icon_off
-            self.icon.notify("Your system is py-caffeinated")
+            self.icon.notify("Your system is no longer PY-Caffeinated")
 
         else:
             self.turn_on()
@@ -48,10 +48,9 @@ class Icon:
             atexit.register(self._quit)
 
             self.icon.icon = Icon.icon_on
-            self.icon.notify("Your system is no longer py-caffeinated")
+            self.icon.notify("Your system is PY-Caffeinated")
 
         self.icon.update_menu()
-
 
     def _quit(self) -> None:
         if self.caffeinated:
