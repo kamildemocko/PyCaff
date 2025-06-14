@@ -25,9 +25,18 @@ uv sync
 
 Run the application
 
+### Manually
 ```cmd
-uv run ./src/main.py
+uv run .\src\main.py
 ```
+
+### Without command line | Schedule
+```cmd
+path_to_folder\.venv\Scripts\pythonw.exe .\src\main.py
+```
+- don't forget working directory to the correct folder
+
+---  
 
 A system tray icon will appear. Click on it to access the menu:
 - **Start/Stop**: Toggle caffeinated mode (prevents sleep when active)
