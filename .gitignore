@@ -12,4 +12,4 @@ wheels/
 # Other
 pycaff.bat
 .vscode
-logs\
+logs/

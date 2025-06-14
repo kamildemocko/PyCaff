@@ -21,6 +21,10 @@ class PowerManager:
         self.original_timeouts: Timeouts | None = None
         self.timeouts_loaded: bool = False
 
+        self.startup_info = subprocess.STARTUPINFO()
+        self.startup_info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        self.startup_info.wShowWindow = 0
+
     def load_original_timeouts(self) -> None:
         """
         Gets timeout in seconds for AC and DC
@@ -28,7 +32,7 @@ class PowerManager:
         DC - battery
         """
         cmd = "powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE"
-        result = subprocess.check_output(cmd, text=True)
+        result = subprocess.check_output(cmd, text=True, startupinfo=self.startup_info)
         matches = re.findall(r'Power Setting Index: 0x([0-9a-fA-F]+)', result)
 
         self.original_timeouts = Timeouts(
@@ -94,5 +98,11 @@ class PowerManager:
         """
         logger.debug(f"setting new  timeouts: {timeouts}")
 
-        subprocess.call(f'powercfg -change -standby-timeout-ac {timeouts.ac / 60}')
-        subprocess.call(f'powercfg -change -standby-timeout-dc {timeouts.dc / 60}')
+        subprocess.call(
+            f'powercfg -change -standby-timeout-ac {timeouts.ac / 60}',
+            startupinfo=self.startup_info,
+        )
+        subprocess.call(
+            f'powercfg -change -standby-timeout-dc {timeouts.dc / 60}',
+            startupinfo=self.startup_info,
+        )
