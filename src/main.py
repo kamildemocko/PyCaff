@@ -16,8 +16,11 @@ def main():
     def turn_off():
         pow.restore_backed_up_timeouts()
         pow.remove_backed_up_timeouts()
+    
+    def show_logs():
+        pow.open_logs(init.info_log_path)
 
-    icon = Icon(turn_on, turn_off)
+    icon = Icon(turn_on, turn_off, show_logs)
     icon.run()
 
 

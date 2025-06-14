@@ -9,16 +9,18 @@ class Icon:
     icon_off = Image.open("./resources/icon_off.png")
     icon_on = Image.open("./resources/icon_on.png")
 
-    def __init__(self, func_on: Callable, func_off: Callable) -> None:
+    def __init__(self, func_on: Callable, func_off: Callable, func_logs: Callable) -> None:
+        self.turn_on = func_on
+        self.turn_off = func_off
+        self.show_logs = func_logs
+        self.caffeinated: bool = False
+
         self.icon = pystray.Icon(
             "pycaff", 
             Icon.icon_off, 
             "PyCaff", 
             self._set_menu()
         )
-        self.turn_on = func_on
-        self.turn_off = func_off
-        self.caffeinated: bool = False
     
     def _set_menu(self) -> pystray.Menu:
         return pystray.Menu(
@@ -27,6 +29,7 @@ class Icon:
                 self._toggle, 
                 default=True,
             ),
+            pystray.MenuItem("Logs", self.show_logs),
             pystray.MenuItem("Quit", self._quit),
         )
     
@@ -51,7 +54,7 @@ class Icon:
             self.icon.notify("Your system is PY-Caffeinated")
 
         self.icon.update_menu()
-
+    
     def _quit(self) -> None:
         if self.caffeinated:
             self.turn_off()

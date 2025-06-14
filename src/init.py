@@ -6,7 +6,7 @@ from models import PowerManager
 from loguru import logger
 
 
-def set_up_logger(info_log_path: str) -> None:
+def set_up_logger(info_log_path: Path) -> None:
     logger.remove()
     logger.add(
         info_log_path,
@@ -28,7 +28,7 @@ def set_up_logger(info_log_path: str) -> None:
 
 class Initializator:
     def __init__(self) -> None:
-        self.info_log_path = "./logs/run.txt"
+        self.info_log_path = Path("./logs/run.txt")
         self.backup_path = (
             Path(".")
             .joinpath("backups")
