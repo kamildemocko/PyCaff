@@ -5,6 +5,8 @@ PyCaff is a Python utility that prevents your Windows system from going to sleep
 ## Features
 
 - Disables system sleep mode while running
+- System tray icon for easy access
+- Toggle between caffeinated (Start/Stop) modes
 - Automatically restores original power settings on exit
 - Backup and restore functionality for power settings
 
@@ -21,37 +23,31 @@ uv sync
 
 ## Usage
 
-## Manual
+Run the application
 
-Run the application to prevent your system from sleeping:
-
+### Manually
 ```cmd
-uv run ./src/main.py
+uv run .\src\main.py
 ```
 
-Press any key to exit and restore original power settings.
+### Without command line | Schedule
+```cmd
+path_to_folder\.venv\Scripts\pythonw.exe .\src\main.py
+```
+- don't forget working directory to the correct folder
+
+---  
+
+A system tray icon will appear. Click on it to access the menu:
+- **Start/Stop**: Toggle caffeinated mode (prevents sleep when active)
+- **Show logs**: Opens up log file in default text app
+- **Quit**: Exit the application and restore power settings
 
 If the application exits unexpectedly, you can restore your original power settings with:
 
 ```cmd
-python -m src.main --restore
+uv run ./src/main.py --restore
 ```
-
-### Script
-
-You can create a batch file to easily run PyCaff:  
-
-1. Create a file named `pycaff.bat` with the following content:  
-
-```cmd
-@echo off
-cd /d "SCRIPT LOCATION"
-uv run ./src/main.py
-REM to enable debugging add `LOGGING_ENABLED=FALSE` to the batch file
-```
-
-2. Save the batch file anywhere convenient
-3. Double-click the batch file or run from command line if saved in *path*
 
 ## License
 
