@@ -108,7 +108,7 @@ class PowerManager:
         )
     
     def open_logs(self, path: Path) -> None:
-        logger.info("openning logs")
+        logger.info("opening logs")
 
         print(path.absolute())
         subprocess.call(
