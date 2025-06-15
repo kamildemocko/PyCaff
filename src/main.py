@@ -8,7 +8,7 @@ def main():
     init = Initializator()
     pow = PowerManager(init.backup_path)
 
-    pow.startup_backup_recovery()
+    init.handle_startup_backup_recovery(pow)
 
     def turn_on():
         pow.load_original_timeouts()

@@ -60,34 +60,6 @@ class PowerManager:
         with self._backup_path.open("w", encoding="utf-8") as file:
             json.dump(asdict(self.original_timeouts), file)
 
-    def startup_backup_recovery(self) -> None:
-        """
-        Restores backed up timeouts, if found backup at startup
-        This will only happen if program terminates unexpectedly
-        """
-        if not self._backup_path.exists():
-            return
-
-        response = ctypes.windll.user32.MessageBoxW(
-            0, 
-            "Backup of timeout was found.\n"
-            "This can happen if this application terminates without restoring original setting.\n\n"
-            "Would you like to go ahead and restore it?\n"
-            "If it's not recovered, the setting will be overwritten.", 
-            "Found timeout setting backup...", 
-            4
-        )
-
-        logger.info(f"found backup, restoring original timeouts from {self._backup_path}")
-
-        # 6=yes;7=no
-        match response:
-            case 6:
-                self.load_original_timeouts()
-                self.remove_backed_up_timeouts()
-            case 7:
-                self.remove_backed_up_timeouts()
-
     def restore_backed_up_timeouts(self) -> None:
         """
         Restores backed up timeouts, if missing throws an error
