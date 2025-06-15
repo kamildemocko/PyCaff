@@ -8,7 +8,7 @@ PyCaff is a Python utility that prevents your Windows system from going to sleep
 - System tray icon for easy access
 - Toggle between caffeinated (Start/Stop) modes
 - Automatically restores original power settings on exit
-- Backup and restore functionality for power settings
+- Backup and restore functionality for power settings in case of termination
 
 ## Installation
 
@@ -43,11 +43,7 @@ A system tray icon will appear. Click on it to access the menu:
 - **Show logs**: Opens up log file in default text app
 - **Quit**: Exit the application and restore power settings
 
-If the application exits unexpectedly, you can restore your original power settings with:
-
-```cmd
-uv run ./src/main.py --restore
-```
+> If the application terminates, the application will ask you at the next startup about restoring this setting from backup
 
 ## License
 

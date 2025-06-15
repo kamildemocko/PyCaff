@@ -22,8 +22,8 @@ class Icon:
             self._set_menu()
         )
     
-    def _set_menu(self) -> pystray.Menu:
-        return pystray.Menu(
+    def _set_menu(self) -> list[pystray.MenuItem]:
+        return [
             pystray.MenuItem(
                 lambda x: "Stop" if self.caffeinated else "Start", 
                 self._toggle, 
@@ -31,7 +31,7 @@ class Icon:
             ),
             pystray.MenuItem("Logs", self.show_logs),
             pystray.MenuItem("Quit", self._quit),
-        )
+        ]
     
     def run(self) -> None:
         self.icon.run()
