@@ -4,7 +4,7 @@ from pathlib import Path
 from loguru import logger
 import ctypes
 
-from models import PowerManager
+from models import PowerManager, Timeouts
 
 
 def set_up_logger(info_log_path: Path) -> None:
@@ -63,3 +63,15 @@ class Initializator:
                 pow.remove_backed_up_timeouts()
             case 7:
                 pow.remove_backed_up_timeouts()
+
+    def handle_startup_already_user_set_caffeinated(self, pow: PowerManager) -> None:
+        pow.load_original_timeouts()
+
+        if pow.original_timeouts == Timeouts(0, 0):
+            ctypes.windll.user32.MessageBoxW(
+                0, 
+                "Your computer is already set not to turn off.\n"
+                "Edit your power plan settings and set it to a different setting from 'Never'", 
+                "Your computer power plan is set to 'Never'", 
+                0
+            )
