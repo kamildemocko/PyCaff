@@ -30,11 +30,14 @@ def set_up_logger(info_log_path: Path) -> None:
 class Initializator:
     def __init__(self) -> None:
         self.info_log_path = Path("./logs/run.txt")
+        set_up_logger(self.info_log_path)
+
         self.backup_path = (
             Path(".")
             .joinpath("backups")
             .joinpath("timeouts.json")
         )
+
 
     def handle_startup_backup_recovery(self, pow: PowerManager) -> None:
         """
