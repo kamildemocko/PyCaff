@@ -48,13 +48,13 @@ class PowerManager:
         if not self.timeouts_loaded:
             raise RuntimeError("original timeouts not loaded, call load_original_timeouts() first")
 
-        logger.info(f"backing up original timeouts to {self._backup_path}")
-
         if not self._backup_path.exists():
             self._backup_path.parent.mkdir(parents=True, exist_ok=True)
 
         if not self.original_timeouts:
             raise ValueError("cannot find timeouts on the system")
+
+        logger.info(f"backing up original timeouts {self.original_timeouts} to {self._backup_path}")
 
         with self._backup_path.open("w", encoding="utf-8") as file:
             json.dump(asdict(self.original_timeouts), file)
@@ -63,7 +63,7 @@ class PowerManager:
         """
         Restores backed up timeouts, if missing throws an error
         """
-        logger.info(f"restoring original timeouts from {self._backup_path}")
+        logger.info(f"restoring original timeouts {self.original_timeouts} from {self._backup_path}")
 
         if not self._backup_path.exists():
             ValueError("backup file does not exist, cannot restore timeouts")
@@ -81,10 +81,10 @@ class PowerManager:
         """
         Deletes backup file
         """
-        logger.info(f"deleting backup timeouts from {self._backup_path}")
-
         if not self._backup_path.exists():
             return
+
+        logger.info(f"deleting backup timeouts from {self._backup_path}")
 
         self._backup_path.unlink()
 
@@ -96,7 +96,7 @@ class PowerManager:
         Args:
             timeouts (Timeouts): Timeouts to set
         """
-        logger.info(f"setting new  timeouts: {timeouts}")
+        logger.info(f"setting new timeouts: {timeouts}")
 
         subprocess.call(
             f'powercfg -change -standby-timeout-ac {timeouts.ac / 60}',
