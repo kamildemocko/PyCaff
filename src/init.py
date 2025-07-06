@@ -18,7 +18,7 @@ def set_up_logger(info_log_path: Path) -> None:
         backtrace=True,
     )
     if not sys.stdout:
-        return 
+        return
 
     logger.add(
         sys.stdout,
@@ -48,12 +48,12 @@ class Initializator:
             return
 
         response = ctypes.windll.user32.MessageBoxW(
-            0, 
+            0,
             "Backup of timeout was found.\n"
             "This can happen if this application terminates without restoring original setting.\n\n"
             "Would you like to go ahead and restore it?\n"
-            "If it's not recovered, the setting will be overwritten.", 
-            "Found timeout setting backup...", 
+            "If it's not recovered, the setting will be overwritten.",
+            "Found timeout setting backup...",
             4
         )
 
@@ -66,15 +66,17 @@ class Initializator:
                 pow.remove_backed_up_timeouts()
             case 7:
                 pow.remove_backed_up_timeouts()
+            case _:
+                raise NotImplementedError("backed up timeouts dialog response is not 6 or 7")
 
     def handle_startup_already_user_set_caffeinated(self, pow: PowerManager) -> None:
         pow.load_original_timeouts()
 
         if pow.original_timeouts == Timeouts(0, 0):
             ctypes.windll.user32.MessageBoxW(
-                0, 
+                0,
                 "Your computer is already set not to turn off.\n"
-                "Edit your power plan settings and set it to a different setting from 'Never'", 
-                "Your computer power plan is set to 'Never'", 
+                "Edit your power plan settings and set it to a different setting from 'Never'",
+                "Your computer power plan is set to 'Never'",
                 0
             )
