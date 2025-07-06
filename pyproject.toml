@@ -1,6 +1,6 @@
 [project]
 name = "pycaff"
-version = "1.0.0"
+version = "1.0.1"
 description = "Caffeinate for Windows that uses PowerPlan "
 readme = "README.md"
 requires-python = ">=3.10"
