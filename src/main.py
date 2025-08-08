@@ -8,6 +8,9 @@ def main():
     init = Initializator()
     pow = PowerManager(init.backup_path)
 
+    init.handle_startup_backup_recovery(pow)
+    init.handle_startup_already_user_set_caffeinated(pow)
+
     def turn_on():
         pow.load_original_timeouts()
         pow.backup_original_timeouts()
