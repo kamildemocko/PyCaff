@@ -62,7 +62,7 @@ class Initializator:
         # 6=yes;7=no
         match response:
             case 6:
-                pow.load_original_timeouts()
+                pow.restore_backed_up_timeouts()
                 pow.remove_backed_up_timeouts()
             case 7:
                 pow.remove_backed_up_timeouts()
